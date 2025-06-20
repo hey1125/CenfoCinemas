@@ -46,8 +46,51 @@ namespace DataAccess.DAO
         }
         public List<Dictionary<string,object>> ExecuteQueryprocess(SqlOperation Operation)
         {
-            var list = new List<Dictionary<string, object>>();
-            return list;
+
+            var lstResults = new List<Dictionary<string, object>>();
+
+            using (var conn = new SqlConnection(_connectionString))
+
+            {
+                using (var command = new SqlCommand(Operation.ProcedureName, conn)
+                {
+                    CommandType = System.Data.CommandType.StoredProcedure
+                })
+                {
+                    //Set de los parametros
+                    foreach (var param in Operation.Parameters)
+                    {
+                        command.Parameters.Add(param);
+                    }
+                    //Ejectura el SP
+                    conn.Open();
+
+                    //de aca en adelante la implementacion es distinta con respecto al procedure anterior
+                    // sentencia que ejectua el SP y captura el resultado
+                    var reader = command.ExecuteReader();
+
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+
+                            var rowDict = new Dictionary<string, object>();
+
+                            for (var index = 0; index < reader.FieldCount; index++)
+                            {
+                                var key = reader.GetName(index);
+                                var value = reader.GetValue(index);
+                                //aca agregamos los valores al diccionario de esta fila
+                                rowDict[key] = value;
+                            }
+                            lstResults.Add(rowDict);
+                        }
+                    }
+
+                }
+            }
+
+            return lstResults;
         }
     }
 }
