@@ -47,6 +47,82 @@ namespace CoreApp
             }
         }
 
+        public List<User> RetriveAll()
+        {
+         
+            var uCrud = new UserCrudFactory();
+            return uCrud.RetriveAll<User>();
+            
+            
+        }
+
+        public User RetrieveById(User user)
+        {
+            try
+            {
+                var uCrud = new UserCrudFactory();
+                return uCrud.RetriveById<User>(user.Id);
+            }
+            catch (Exception ex)
+            {
+                ManagerException(ex);
+                return null;
+            }
+        }
+
+        public User RetrieveByEmail(User user)
+        {
+            try
+            {
+                var factory = new UserCrudFactory();
+                return factory.RetriveByEmail<User>(user);
+            }
+            catch (Exception ex)
+            {
+                ManagerException(ex);
+                return null;
+            }
+        }
+
+        public User RetrieveByUserCode(User user)
+        {
+            try
+            {
+                var factory = new UserCrudFactory();
+                return factory.RetriveByUserCode<User>(user);
+            }
+            catch (Exception ex)
+            {
+                ManagerException(ex);
+                return null;
+            }
+        }
+
+        public void Update(User user)
+        {
+            try
+            {
+                var factory = new UserCrudFactory();
+                factory.Update(user);
+            }
+            catch (Exception ex)
+            {
+                ManagerException(ex);
+            }
+        }
+
+        public void Delete(User user)
+        {
+            try
+            {
+                var factory = new UserCrudFactory();
+                factory.Delete(user);
+            }
+            catch (Exception ex)
+            {
+                ManagerException(ex);
+            }
+        }
 
 
         private bool IsOver18(User user)
