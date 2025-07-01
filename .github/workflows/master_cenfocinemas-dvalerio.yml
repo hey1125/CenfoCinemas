@@ -26,7 +26,7 @@ jobs:
       - name: Build WEB API
         run: dotnet build ./WebA/WebA.csproj --configuration Debug
 
-      - name: dotnet publish WEB APO
+      - name: dotnet publish WEB API
         run: dotnet publish ./WebA/WebA.csproj -c Debug -o "${{env.DOTNET_ROOT}}/myapp"
 
       - name: Upload artifact for deployment job
