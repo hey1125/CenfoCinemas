@@ -23,11 +23,11 @@ jobs:
         with:
           dotnet-version: '8.x'
 
-      - name: Build with dotnet
-        run: dotnet build --configuration Release
+      - name: Build WebApp
+        run: dotnet build ./5_WebApp/5_WebApp.csproj --configuration Release
 
-      - name: dotnet publish
-        run: dotnet publish -c Release -o "${{env.DOTNET_ROOT}}/myapp"
+      - name: Publish WebApp
+        run: dotnet publish ./5_WebApp/5_WebApp.csproj -c Release -o '${{env.DOTNET_ROOT}}/webapp'
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
