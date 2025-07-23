@@ -23,7 +23,7 @@ namespace WebA.Controllers
             }
         }
 
-        [HttpGet("RetrieveAll")]
+        [HttpGet("RetriveAll")]
         public ActionResult RetrieveAll()
         {
             try
